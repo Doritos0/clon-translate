@@ -1,15 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Stack } from 'react-bootstrap'
 import { useStore } from './hooks/useStore'
 import { AUTO_LANGUAGE } from './constants'
 import { Cambio } from './components/icons'
 import { LanguageSelector } from './components/LanguageSelector'
+import TextArea from './components/TextArea'
+import { SectionType } from './types'
 
 function App() {
 
-  const { fromLanguage, toLanguage, intercambiarIdiomas, setFromLanguage, setToLanguage } = useStore()
+  const { loading, fromLanguage, toLanguage, intercambiarIdiomas, setFromLanguage, setToLanguage, result, setResult, fromText, setFromText } = useStore()
 
   return (
     <>
@@ -17,23 +19,36 @@ function App() {
       <h1>App</h1>
       <Row>
         <Col>
-        <LanguageSelector 
-        type='from'
-        value={fromLanguage}
-        onChange={setFromLanguage}/>
-        {fromLanguage}
+        <Stack gap={2}>
+          <LanguageSelector 
+          type='from'
+          value={fromLanguage}
+          onChange={setFromLanguage}/>
+          <TextArea 
+          type={SectionType.From}
+          value={fromText}
+          onChange={setFromText}
+          />
+        </Stack>
         </Col>
-        <Col>
+        <Col xs='auto'>
         <Button variant='link' disabled={fromLanguage == AUTO_LANGUAGE} onClick={intercambiarIdiomas}>
         <Cambio />
         </Button>
         </Col>
         <Col>
-        <LanguageSelector 
-        type='to'
-        value={toLanguage}
-        onChange={setToLanguage}/>
-        {toLanguage}
+        <Stack gap={2}>
+          <LanguageSelector 
+          type='to'
+          value={toLanguage}
+          onChange={setToLanguage}/>
+          <TextArea 
+          loading={loading}
+          type={SectionType.To}
+          value={result}
+          onChange={setResult}
+          />
+        </Stack>
         </Col>
       </Row>
     </Container>
