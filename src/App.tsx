@@ -5,10 +5,11 @@ import { Container, Row, Col, Button } from 'react-bootstrap'
 import { useStore } from './hooks/useStore'
 import { AUTO_LANGUAGE } from './constants'
 import { Cambio } from './components/icons'
+import { LanguageSelector } from './components/LanguageSelector'
 
 function App() {
 
-  const { fromLanguage, toLanguage, intercambiarIdiomas } = useStore()
+  const { fromLanguage, toLanguage, intercambiarIdiomas, setFromLanguage, setToLanguage } = useStore()
 
   return (
     <>
@@ -16,8 +17,11 @@ function App() {
       <h1>App</h1>
       <Row>
         <Col>
-        <h2>From</h2>
-        { fromLanguage }
+        <LanguageSelector 
+        type='from'
+        value={fromLanguage}
+        onChange={setFromLanguage}/>
+        {fromLanguage}
         </Col>
         <Col>
         <Button variant='link' disabled={fromLanguage == AUTO_LANGUAGE} onClick={intercambiarIdiomas}>
@@ -25,7 +29,10 @@ function App() {
         </Button>
         </Col>
         <Col>
-        <h2>To</h2>
+        <LanguageSelector 
+        type='to'
+        value={toLanguage}
+        onChange={setToLanguage}/>
         {toLanguage}
         </Col>
       </Row>
