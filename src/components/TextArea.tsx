@@ -10,9 +10,6 @@ interface Props {
 
 
 export const TextArea = ({ type, loading, value, onChange } : Props) =>{
-
-    console.log(value)
-    console.log(onChange)
     
     const commonStyles = { border: 0, height: '200px', resize: 'none'}
 
@@ -37,6 +34,7 @@ export const TextArea = ({ type, loading, value, onChange } : Props) =>{
         placeholder={getPlaceholder({ type, loading })}
         disabled={type == SectionType.To}
         style={styles}
+        value={value}
         onChange={handleChange}
       />
     )
